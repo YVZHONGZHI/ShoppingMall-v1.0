@@ -1,0 +1,43 @@
+.div1 {
+    width: 1300px;
+    height: 100px;
+    position: relative;
+    top: 93px;
+	margin-left: 110px;
+    z-index: 1;
+    font-family: "微软雅黑";
+	font-size: 28px;
+	text-align: center;
+}
+
+.div2 {
+    position: relative;
+    top: 85px;
+    z-index: 1;
+}
+
+table {
+	margin-left: 607px;
+	border-collapse: collapse;
+}
+
+span {
+	font-family: "微软雅黑 Light";
+	font-size: 5px;
+    color: red;
+}
+
+.label1 {
+	font-family: "微软雅黑";
+	font-size: 13px;
+	background-color: blue;
+	color: white;
+	width: 90px;
+}
+
+.label2 {
+	font-family: "微软雅黑";
+	font-size: 13px;
+	margin-left: 15px;
+	width: 90px;
+}

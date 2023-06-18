@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+        <meta charset="UTF-8">
+		<title>后台管理</title>
+        <script src="/static/jQuery.js"></script>
+        <script src="/static/mysetup.js"></script>
+        <script type="text/javascript" src="/static/js/backend.js"></script>
+        <script src="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/{{ request.user.mall.userinfo.username }}/">{{ request.user.mall.site_title }}</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/home/">商品<span class="sr-only">(current)</span></a></li>
+                        <li><a href="/vip/">精品推荐</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <label for="search"></label>
+                            <input type="text" id="search" class="form-control" placeholder="输入关键字">
+                        </div>
+                        <input type="button" class="btn btn-default" value="搜索" onclick="test()">
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if request.user.is_authenticated %}
+                            <li><a href="#">{{ request.user.username }}</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多操作 <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">修改密码</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">修改头像</a></li>
+                                    <li><a href="/backend/">后台管理</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="{% url 'logout' %}">退出登录</a></li>
+                                </ul>
+                                <!-- Large modal -->
+
+                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <h1 class="text-center">修改密码</h1>
+                                            <div class="row">
+                                                <div class="col-md-8 col-md-offset-2">
+                                                    <div class="form-group">
+                                                        <label for="username">用户名</label>
+                                                        <input type="text" id="username" value="{{ request.user.username }}" class="form-control" disabled>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_old_password">原密码</label>
+                                                        <input type="password" id="id_old_password" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_new_password">新密码</label>
+                                                        <input type="password" id="id_new_password" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_confirm_password">确认密码</label>
+                                                        <input type="password" id="id_confirm_password" class="form-control">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                        <button id="set_password" class="btn btn-primary">修改</button>
+                                                        <span style="color: red" id="password_error"></span>
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Small modal -->
+
+                                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                                    <div class="modal-dialog modal-sm" role="document">
+                                        <div class="modal-content">
+                                            <h1 class="text-center">修改头像</h1>
+                                            <div class="row">
+                                                <div class="col-md-8 col-md-offset-2">
+                                                    <div class="form-group">
+                                                        <label for="myfile">
+                                                            原头像:&nbsp;&nbsp;&nbsp;&nbsp;<img src="/media/{{ request.user.avatar }}" width="75" height="75" alt="原用户名图标">
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="avatar">
+                                                            新头像:&nbsp;&nbsp;&nbsp;&nbsp;<img src="/media/avatar/w.jpg" id="myimg" width="75" height="75" alt="新用户名图标">
+                                                        </label>
+                                                        <input type="file" id="avatar" name="avatar" style="display: none">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                        <button id="set_avatar" class="btn btn-primary">提交</button>
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% else %}
+                            <li><a href="{% url 'reg' %}">注册</a></li>
+                            <li><a href="{% url 'login' %}">登录</a></li>
+                        {% endif %}
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style='text-decoration:none'>
+                                        更多操作
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <a href="/add/goods/" style='text-decoration:none'>发售商品</a>
+                                </div>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <a href="" style='text-decoration:none'>联系客服</a>
+                                </div>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <a href="" style='text-decoration:none'>意见反馈</a>
+                                </div>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <a href="" style='text-decoration:none'>&nbsp;&nbsp;&nbsp;其他</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div>
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#shop_car" aria-controls="shop_car" role="tab" data-toggle="tab">购物车</a></li>
+                            <li role="presentation"><a href="#cash_flow" aria-controls="cash_flow" role="tab" data-toggle="tab">流水</a></li>
+                            <li role="presentation"><a href="#goods" aria-controls="goods" role="tab" data-toggle="tab">商品</a></li>
+                            <li role="presentation"><a href="#logistics" aria-controls="logistics" role="tab" data-toggle="tab">物流</a></li>
+                            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">设置</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="shop_car">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>&nbsp;&nbsp;商品名称</th>
+                                            <th>商品单价</th>
+                                            <th>&nbsp;&nbsp;&nbsp;加入购物车时间</th>
+                                            <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;操作</th>
+                                            <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for goods in car_list %}
+                                            <tr>
+                                                <td>
+                                                    <a href="/{{ goods.goods.mall.userinfo.username }}/goods/{{ goods.goods.pk }}/" style='text-decoration:none'>
+                                                        {{ goods.goods.shop_name }}
+                                                    </a>
+                                                </td>
+                                                <td>￥{{ goods.goods.shop_price }}</td>
+                                                <td>{{ goods.shop_time|date:'Y-m-d H:i:s' }}</td>
+                                                <td>
+                                                    <button class="Pay" goods_id="{{ goods.goods.pk }}">支付订单</button>
+                                                </td>
+                                                <td>
+                                                    <button class="Cancel" goods_id="{{ goods.goods.pk }}">取消订单</button>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="cash_flow">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交易时间</th>
+                                            <th>买入</th>
+                                            <th>卖出</th>
+                                            <th>商品名称</th>
+                                            <th>交易金额</th>
+                                            <th>账户余额</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for flow in flow_list %}
+                                            <tr>
+                                                <td>{{ flow.pay_time|date:'Y-m-d H:i:s' }}</td>
+                                                <td>{{ flow.buy_num }}</td>
+                                                <td>{{ flow.sell_num }}</td>
+                                                <td>
+                                                    <a href="/{{ flow.goods.mall.userinfo.username }}/goods/{{ flow.goods.pk }}/" style='text-decoration:none'>
+                                                        {{ flow.goods.shop_name }}
+                                                    </a>
+                                                </td>
+                                                <td>￥{{ flow.goods.shop_price }}</td>
+                                                <td>￥{{ flow.balance_flow }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="goods">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>&nbsp;&nbsp;商品名称</th>
+                                            <th>商品单价</th>
+                                            <th>点赞数</th>
+                                            <th>评论数</th>
+                                            <th>操作</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for goods in goods_list %}
+                                            <tr>
+                                                <td>
+                                                    <a href="/{{ goods.mall.userinfo.username }}/goods/{{ goods.pk }}/" style='text-decoration:none'>
+                                                        {{ goods.shop_name }}
+                                                    </a>
+                                                </td>
+                                                <td>￥{{ goods.shop_price }}</td>
+                                                <td>{{ goods.up_num }}</td>
+                                                <td>{{ goods.comment_num }}</td>
+                                                <td>
+                                                    <a href="" style='text-decoration:none'>编辑</a>
+                                                </td>
+                                                <td>
+                                                    <a href="" style='text-decoration:none'>删除</a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="logistics">
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="settings">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

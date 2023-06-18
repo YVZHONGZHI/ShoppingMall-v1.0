@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+        <meta charset="UTF-8">
+		<title>发售商品</title>
+        <script src="/static/jQuery.js"></script>
+        <script src="/static/mysetup.js"></script>
+        <script type="text/javascript" src="/static/js/add_goods.js"></script>
+        <script src="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/{{ request.user.mall.userinfo.username }}/">{{ request.user.mall.site_title }}</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/home/">商品<span class="sr-only">(current)</span></a></li>
+                        <li><a href="/vip/">精品推荐</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <label for="search"></label>
+                            <input type="text" id="search" class="form-control" placeholder="输入关键字">
+                        </div>
+                        <input type="button" class="btn btn-default" value="搜索" onclick="test()">
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if request.user.is_authenticated %}
+                            <li><a href="#">{{ request.user.username }}</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多操作 <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">修改密码</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">修改头像</a></li>
+                                    <li><a href="/backend/">后台管理</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="{% url 'logout' %}">退出登录</a></li>
+                                </ul>
+                                <!-- Large modal -->
+
+                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <h1 class="text-center">修改密码</h1>
+                                            <div class="row">
+                                                <div class="col-md-8 col-md-offset-2">
+                                                    <div class="form-group">
+                                                        <label for="username">用户名</label>
+                                                        <input type="text" id="username" value="{{ request.user.username }}" class="form-control" disabled>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_old_password">原密码</label>
+                                                        <input type="password" id="id_old_password" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_new_password">新密码</label>
+                                                        <input type="password" id="id_new_password" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_confirm_password">确认密码</label>
+                                                        <input type="password" id="id_confirm_password" class="form-control">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                        <button id="set_password" class="btn btn-primary">修改</button>
+                                                        <span style="color: red" id="password_error"></span>
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Small modal -->
+
+                                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                                    <div class="modal-dialog modal-sm" role="document">
+                                        <div class="modal-content">
+                                            <h1 class="text-center">修改头像</h1>
+                                            <div class="row">
+                                                <div class="col-md-8 col-md-offset-2">
+                                                    <div class="form-group">
+                                                        <label for="myfile">
+                                                            原头像:&nbsp;&nbsp;&nbsp;&nbsp;<img src="/media/{{ request.user.avatar }}" width="75" height="75" alt="原用户名图标">
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="avatar">
+                                                            新头像:&nbsp;&nbsp;&nbsp;&nbsp;<img src="/media/avatar/w.jpg" id="myimg" width="75" height="75" alt="新用户名图标">
+                                                        </label>
+                                                        <input type="file" id="avatar" name="avatar" style="display: none">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                        <button id="set_avatar" class="btn btn-primary">提交</button>
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% else %}
+                            <li><a href="{% url 'reg' %}">注册</a></li>
+                            <li><a href="{% url 'login' %}">登录</a></li>
+                        {% endif %}
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style='text-decoration:none'>
+                                        更多操作
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <a href="/backend/" style='text-decoration:none'>后台管理</a>
+                                </div>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <a href="" style='text-decoration:none'>联系客服</a>
+                                </div>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <a href="" style='text-decoration:none'>意见反馈</a>
+                                </div>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <a href="" style='text-decoration:none'>&nbsp;&nbsp;&nbsp;其他</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <h3>发售商品</h3>
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label for="shop_name">商品名称</label>
+                        <div>
+                            <input type="text" name="shop_name" id="shop_name" class="form-control">
+                        </div>
+                        <label for="shop_price">商品单价</label>
+                        <div>
+                            <input type="text" name="shop_price" id="shop_price" class="form-control">
+                        </div>
+                        <label for="content">商品说明</label>
+                        <div>
+                            <textarea name="content" id="content" cols="60" rows="6"></textarea>
+                        </div>
+                        <p>商品图片</p>
+                        <div>
+                            <label for="shop_picture">
+                                <img src="/media/shop_picture/w.jpeg" id="picture" width="75" height="75" alt="商品图标">
+                            </label>
+                            <input type="file" id="shop_picture" name="shop_picture" style="display: none">
+                        </div>
+                        <br>
+                        <p>商品分类</p>
+                        <div>
+                            {% for category in category_list %}
+                                <label>
+                                    <input type="radio" name="category" value="{{ category.pk }}">{{ category.name }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                        <br>
+                        <p>商品标签</p>
+                        <div>
+                            {% for tag in tag_list %}
+                                <label>
+                                    <input type="checkbox" name="tag" value="{{ tag.pk }}">{{ tag.name }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                        <br>
+                        <input type="button" value="取消" class="btn btn-info">
+                        <input type="submit" class="btn btn-danger">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

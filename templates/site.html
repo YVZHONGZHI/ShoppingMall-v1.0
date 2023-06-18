@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <ul class="media-list">
+        {% for goods_obj in goods_list %}
+            <li class="media">
+                <h4 class="media-heading">
+                    <a href="/{{ username }}/goods/{{ goods_obj.pk }}/" style='text-decoration:none'>
+                        {{ goods_obj.shop_name }}
+                    </a>
+                </h4>
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object" src="/media/{{ goods_obj.shop_picture }}" width="125" height="125" alt="商品图片">
+                    </a>
+                </div>
+                <div class="media-body" style='white-space:pre-wrap'>{{ goods_obj.desc }}</div>
+                <div class="pull-right">
+                    <span>posted&nbsp;&nbsp;</span>
+                    <span>@&nbsp;&nbsp;</span>
+                    <span>
+                        {{ goods_obj.create_time|date:'Y-m-d' }}&nbsp;&nbsp;
+                    </span>
+                    <span>
+                        {{ goods_obj.mall.userinfo.username }}&nbsp;&nbsp;
+                    </span>
+                    <span>
+                        <span class="glyphicon glyphicon-comment"></span>评论({{ goods_obj.comment_num }})&nbsp;&nbsp;
+                    </span>
+                    <span>
+                        <span class="glyphicon glyphicon-thumbs-up"></span>点赞({{ goods_obj.up_num }})
+                    </span>
+                    <span>
+                        <a href="#" style='text-decoration:none'>编辑</a>
+                    </span>
+                </div>
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+{% endblock %}

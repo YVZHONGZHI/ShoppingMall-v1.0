@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+        <meta charset="UTF-8">
+		<title>特色商品</title>
+        <script src="/static/jQuery.js"></script>
+        <script src="/static/mysetup.js"></script>
+		<link rel="stylesheet" href="/static/css/exhibit.css">
+		<script type="text/javascript" src="/static/js/exhibit.js"></script>
+	</head>
+	<body>
+		<fieldset>
+			<legend>旗舰5G平板</legend>
+			<table>
+				<tr>
+					<th>
+						<img src="/static/img/w2.jpg" width="686" height="400" alt="展示图">
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<h1>
+                            ￥{{ goods_list.10.shop_price }}
+							<input type="button" value="多款可选" onclick="judge()">
+						</h1>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<span class="span1">赠送积分</span>
+					</th>
+				</tr>
+				<tr><th>&nbsp;</th></tr>
+				<tr>
+					<th>
+						<span class="span2">40834人评价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;98%好评</span>
+					</th>
+				</tr>
+				<tr>
+                    <th>
+                        <span class="span3">&nbsp;</span>
+                    </th>
+                </tr>
+				<tr>
+					<th>
+						<form action="" method="post" id="w" novalidate>
+                            {{ form_obj.password.label }}
+                            {{ form_obj.password }}
+                            <input type="button" value="立  即  购  买" onclick="test()">
+                        </form>
+					</th>
+				</tr>
+			</table>
+		</fieldset>
+	</body>
+</html>

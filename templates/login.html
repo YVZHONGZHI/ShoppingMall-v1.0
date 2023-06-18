@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>用户登录页面</title>
+        <link rel="stylesheet" href="/static/css/login.css">
+    </head>
+    <body>
+        <form action="" method="post" id="w">
+            {% csrf_token %}
+            <div class="div1">
+                <h1>中  文  用  户  登  录  页  面</h1>
+                <div class="div2">
+                    <label for="w1">
+                        <img src="/static/img/w.png" width="24" height="24" alt="用户名图标">
+                        <input type="text" id="w1" name="username" class="label1" placeholder="用 户 名">
+                    </label>
+                </div>
+                <div class="div2">
+                    <label for="p">
+                        <img src="/static/img/w1.png" width="24" height="24" alt="密码图标">
+                        <input type="password" id="p" name="password" class="label1" placeholder="密 码">
+                    </label>
+                </div>
+                <input type="submit" value="登    录" class="label2" form="w">
+            </div>
+        </form>
+    </body>
+</html>

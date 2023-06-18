@@ -1,0 +1,35 @@
+fieldset {
+    height: 683px;
+}
+
+table {
+	margin: auto;
+	border-collapse: collapse;
+}
+
+h1 {
+	font-size: 48px;
+	color: red;
+}
+
+img {
+    transition: opacity 2s;
+}
+
+img:hover {
+    opacity: 0;
+}
+
+.span1 {
+	color: red;
+}
+
+.span2 {
+	color: darkgray;
+}
+
+.span3 {
+	font-family: "微软雅黑 Light";
+	font-size: 5px;
+    color: red;
+}

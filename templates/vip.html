@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+        <meta charset="UTF-8">
+		<title>精品推荐</title>
+		<link rel="stylesheet" href="/static/css/vip.css">
+		<script type="text/javascript" src="/static/js/vip.js"></script>
+	</head>
+	<body>
+		<div class="div1">
+			<img src="/static/img/w1.jpg" width="1300" height="260" alt="顶图">
+		</div>
+		<div class="div2">
+			<div class="div3">
+				<h1>
+					<label for="w1">输入关键字:</label>
+					<input type="text" id="w1" name="search">
+					<input type="button" value="搜索" onclick="test()">
+				</h1>
+				<h2>产 品 分 类</h2>
+				<form action="" method="post" id="w">{% csrf_token %}</form>
+				<input type="submit" value="&#9762   华为                " class="label1" form="w">
+				<input type="button" value="&#9775   APPLE               " class="label1" onclick="text()">
+				<input type="button" value="&#9752   三星                " class="label1" onclick="text()">
+				<input type="button" value="&#9798   OPPO                " class="label1" onclick="text()">
+				<input type="button" value="&#9910   真我                " class="label1" onclick="text()">
+				<input type="button" value="&#9878   IQOO                " class="label1" onclick="text()">
+			</div>
+			<div class="div4">
+			<input type="button" value="最新商品" class="label2" onclick="text()">
+			<input type="button" value="推荐商品" class="label3" onclick="text()">
+			</div>
+			<div class="div5">
+				<table>
+					<tr>
+						<th colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+						<th colspan="10">
+							<img src="/media/{{ goods_list.0.shop_picture }}" width="110" height="110" alt="">
+						</th>
+						<th colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+						<th colspan="10">
+							<img src="/media/{{ goods_list.1.shop_picture }}" width="110" height="110" alt="">
+						</th>
+						<th colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+						<th colspan="10">
+							<img src="/media/{{ goods_list.2.shop_picture }}" width="110" height="110" alt="">
+						</th>
+						<th colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+						<th colspan="10">
+							<img src="/media/{{ goods_list.3.shop_picture }}" width="110" height="110" alt="">
+						</th>
+						<th colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+						<th colspan="10">
+							<img src="/media/{{ goods_list.4.shop_picture }}" width="110" height="110" alt="">
+						</th>
+						<th colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+					</tr>
+					<tr>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">
+                            <a href="/{{ goods_list.0.mall.userinfo.username }}/goods/{{ goods_list.0.pk }}/" style='text-decoration:none'>
+                                <span>{{ goods_list.0.shop_name }}</span>
+                            </a>
+						</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">
+                            <a href="/{{ goods_list.1.mall.userinfo.username }}/goods/{{ goods_list.1.pk }}/" style='text-decoration:none'>
+                                <span>{{ goods_list.1.shop_name }}</span>
+                            </a>
+						</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">
+                            <a href="/{{ goods_list.2.mall.userinfo.username }}/goods/{{ goods_list.2.pk }}/" style='text-decoration:none'>
+                                <span>{{ goods_list.2.shop_name }}</span>
+                            </a>
+						</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">
+                            <a href="/{{ goods_list.3.mall.userinfo.username }}/goods/{{ goods_list.3.pk }}/" style='text-decoration:none'>
+                                <span>{{ goods_list.3.shop_name }}</span>
+                            </a>
+						</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">
+                            <a href="/{{ goods_list.4.mall.userinfo.username }}/goods/{{ goods_list.4.pk }}/" style='text-decoration:none'>
+                                <span>{{ goods_list.4.shop_name }}</span>
+                            </a>
+						</th>
+						<th colspan="1">&nbsp;</th>
+					</tr>
+					<tr>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">￥{{ goods_list.0.shop_price }}/{{ goods_list.0.tags.all.0 }}</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">￥{{ goods_list.1.shop_price }}/{{ goods_list.1.tags.all.0 }}</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">￥{{ goods_list.2.shop_price }}/{{ goods_list.2.tags.all.0 }}</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">￥{{ goods_list.3.shop_price }}/{{ goods_list.3.tags.all.0 }}</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">￥{{ goods_list.4.shop_price }}/{{ goods_list.4.tags.all.0 }}</th>
+						<th colspan="1">&nbsp;</th>
+					</tr>
+				</table>
+			</div>
+			<div class="div6">
+				<input type="button" value="特色商品" class="label2" onclick="text()">
+			</div>
+			<div class="div7">
+				<table>
+					<tr>
+						<th colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+						<th colspan="10">
+							<img src="/media/{{ goods_list.5.shop_picture }}" width="110" height="110" alt="">
+						</th>
+						<th colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+						<th colspan="10">
+							<img src="/media/{{ goods_list.6.shop_picture }}" width="110" height="110" alt="">
+						</th>
+						<th colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+						<th colspan="10">
+							<img src="/media/{{ goods_list.7.shop_picture }}" width="110" height="110" alt="">
+						</th>
+						<th colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+						<th colspan="10">
+							<img src="/media/{{ goods_list.8.shop_picture }}" width="110" height="110" alt="">
+						</th>
+						<th colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+						<th colspan="10">
+							<img src="/media/{{ goods_list.9.shop_picture }}" width="110" height="110" alt="">
+						</th>
+						<th colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+					</tr>
+					<tr>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">
+                            <a href="/{{ goods_list.5.mall.userinfo.username }}/goods/{{ goods_list.5.pk }}/" style='text-decoration:none'>
+                                <span>{{ goods_list.5.shop_name }}</span>
+                            </a>
+						</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">
+                            <a href="/{{ goods_list.6.mall.userinfo.username }}/goods/{{ goods_list.6.pk }}/" style='text-decoration:none'>
+                                <span>{{ goods_list.6.shop_name }}</span>
+                            </a>
+						</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">
+                            <a href="/{{ goods_list.7.mall.userinfo.username }}/goods/{{ goods_list.7.pk }}/" style='text-decoration:none'>
+                                <span>{{ goods_list.7.shop_name }}</span>
+                            </a>
+						</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">
+                            <a href="/{{ goods_list.8.mall.userinfo.username }}/goods/{{ goods_list.8.pk }}/" style='text-decoration:none'>
+                                <span>{{ goods_list.8.shop_name }}</span>
+                            </a>
+						</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">
+                            <a href="/{{ goods_list.9.mall.userinfo.username }}/goods/{{ goods_list.9.pk }}/" style='text-decoration:none'>
+                                <span>{{ goods_list.9.shop_name }}</span>
+                            </a>
+						</th>
+						<th colspan="1">&nbsp;</th>
+					</tr>
+					<tr>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">￥{{ goods_list.5.shop_price }}/{{ goods_list.5.tags.all.0 }}</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">￥{{ goods_list.6.shop_price }}/{{ goods_list.6.tags.all.0 }}</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">￥{{ goods_list.7.shop_price }}/{{ goods_list.7.tags.all.0 }}</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">￥{{ goods_list.8.shop_price }}/{{ goods_list.8.tags.all.0 }}</th>
+						<th colspan="1">&nbsp;</th>
+						<th colspan="10">￥{{ goods_list.9.shop_price }}/{{ goods_list.9.tags.all.0 }}</th>
+						<th colspan="1">&nbsp;</th>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

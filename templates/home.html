@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+        <meta charset="UTF-8">
+		<title>ATM购物商城</title>
+        <script src="/static/jQuery.js"></script>
+        <script src="/static/mysetup.js"></script>
+        <link rel="stylesheet" href="/static/css/home.css">
+        <script type="text/javascript" src="/static/js/base.js"></script>
+        <script src="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">ATM购物商城</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/home/">商品<span class="sr-only">(current)</span></a></li>
+                        <li><a href="/vip/">精品推荐</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <label for="search"></label>
+                            <input type="text" id="search" class="form-control" placeholder="输入关键字">
+                        </div>
+                        <input type="button" class="btn btn-default" value="搜索" onclick="test()">
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if request.user.is_authenticated %}
+                            <li><a href="#">{{ request.user.username }}</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多操作 <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">修改密码</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">修改头像</a></li>
+                                    <li><a href="/backend/">后台管理</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="{% url 'logout' %}">退出登录</a></li>
+                                </ul>
+                                <!-- Large modal -->
+
+                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <h1 class="text-center">修改密码</h1>
+                                            <div class="row">
+                                                <div class="col-md-8 col-md-offset-2">
+                                                    <div class="form-group">
+                                                        <label for="username">用户名</label>
+                                                        <input type="text" id="username" value="{{ request.user.username }}" class="form-control" disabled>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_old_password">原密码</label>
+                                                        <input type="password" id="id_old_password" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_new_password">新密码</label>
+                                                        <input type="password" id="id_new_password" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_confirm_password">确认密码</label>
+                                                        <input type="password" id="id_confirm_password" class="form-control">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                        <button id="set_password" class="btn btn-primary">修改</button>
+                                                        <span style="color: red" id="password_error"></span>
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Small modal -->
+
+                                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                                    <div class="modal-dialog modal-sm" role="document">
+                                        <div class="modal-content">
+                                            <h1 class="text-center">修改头像</h1>
+                                            <div class="row">
+                                                <div class="col-md-8 col-md-offset-2">
+                                                    <div class="form-group">
+                                                        <label for="myfile">
+                                                            原头像:&nbsp;&nbsp;&nbsp;&nbsp;<img src="/media/{{ request.user.avatar }}" width="75" height="75" alt="原用户名图标">
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="avatar">
+                                                            新头像:&nbsp;&nbsp;&nbsp;&nbsp;<img src="/media/avatar/w.jpg" id="myimg" width="75" height="75" alt="新用户名图标">
+                                                        </label>
+                                                        <input type="file" id="avatar" name="avatar" style="display: none">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                        <button id="set_avatar" class="btn btn-primary">提交</button>
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% else %}
+                            <li><a href="{% url 'reg' %}">注册</a></li>
+                            <li><a href="{% url 'login' %}">登录</a></li>
+                        {% endif %}
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <div class="container-fluid">
+            <div class="col-md-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">直播</h3>
+                    </div>
+                    <div class="panel-body">
+                        点击观看华为p60 发布会
+                    </div>
+                </div>
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">想换新手机了怎么办?</h3>
+                    </div>
+                    <div class="panel-body">
+                        多家线下门店推出以旧换新业务
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">突发</h3>
+                    </div>
+                    <div class="panel-body">
+                        手机发烫的原因竟然是...
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <ul class="media-list">
+                    {% for goods_obj in goods_queryset %}
+                        <li class="media">
+                            <h4 class="media-heading">
+                                <a href="/{{ goods_obj.mall.userinfo.username }}/goods/{{ goods_obj.pk }}/" style='text-decoration:none'>
+                                    {{ goods_obj.shop_name }}
+                                </a>
+                            </h4>
+                            <div class="media-left">
+                                <a href="#">
+                                    <img class="media-object" src="/media/{{ goods_obj.shop_picture }}" width="125" height="125" alt="商品图片">
+                                </a>
+                            </div>
+                            <div class="media-body" style='white-space:pre-wrap'>{{ goods_obj.desc }}</div>
+                            <div>
+                                <div class="media-left">
+                                    <div class="avatar">
+                                        <img src="/media/{{ goods_obj.mall.userinfo.avatar }}" alt="用户头像">
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <br>
+                                    <span>
+                                        <a href="/{{ goods_obj.mall.userinfo.username }}/" style='text-decoration:none'>
+                                            {{ goods_obj.mall.site_title }}&nbsp;&nbsp;
+                                        </a>
+                                    </span>
+                                    <span>发售于&nbsp;&nbsp;</span>
+                                    <span>
+                                        {{ goods_obj.create_time|date:'Y-m-d' }}&nbsp;&nbsp;
+                                    </span>
+                                    <span>
+                                        <span class="glyphicon glyphicon-comment"></span>评论({{ goods_obj.comment_num }})&nbsp;&nbsp;
+                                    </span>
+                                    <span>
+                                        <span class="glyphicon glyphicon-thumbs-up"></span>点赞({{ goods_obj.up_num }})
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <hr>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">广告w</h3>
+                    </div>
+                    <div class="panel-body">
+                        广告w
+                    </div>
+                </div>
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">广告w1</h3>
+                    </div>
+                    <div class="panel-body">
+                        广告w1
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">广告w2</h3>
+                    </div>
+                    <div class="panel-body">
+                        广告w2
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

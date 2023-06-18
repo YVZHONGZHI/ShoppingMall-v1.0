@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+        <meta charset="UTF-8">
+		<title>用户注册页面</title>
+        <script src="/static/jQuery.js"></script>
+        <script src="/static/mysetup.js"></script>
+		<link rel="stylesheet" href="/static/css/register.css">
+        <script type="text/javascript" src="/static/js/register.js"></script>
+	</head>
+	<body>
+		<div class="div1">
+			中  文  用  户  注  册  页  面
+		</div>
+        <div class="div2">
+            <form action="" method="post" id="w" novalidate>
+                <table>
+                    <tr>
+                        <th colspan="3">
+                            {{ form_obj.username.label }}
+                        </th>
+                        <th colspan="9">
+                            {{ form_obj.username }}
+                        </th>
+                        <th colspan="3">
+                            <span></span>
+                        </th>
+                    </tr>
+                    <tr><th>&nbsp;</th></tr>
+                    <tr>
+                        <th colspan="3">
+                            {{ form_obj.password.label }}
+                        </th>
+                        <th colspan="9">
+                            {{ form_obj.password }}
+                        </th>
+                        <th colspan="3">
+                            <span></span>
+                        </th>
+                    </tr>
+                    <tr><th>&nbsp;</th></tr>
+                    <tr>
+                        <th colspan="3">
+                            {{ form_obj.confirm_password.label }}
+                        </th>
+                        <th colspan="9">
+                            {{ form_obj.confirm_password }}
+                        </th>
+                        <th colspan="3">
+                            <span></span>
+                        </th>
+                    </tr>
+                    <tr><th>&nbsp;</th></tr>
+                    <tr>
+                        <th colspan="3">
+                            {{ form_obj.email.label }}
+                        </th>
+                        <th colspan="9">
+                            {{ form_obj.email }}
+                        </th>
+                        <th colspan="3">
+                            <span></span>
+                        </th>
+                    </tr>
+                    <tr><th>&nbsp;</th></tr>
+                    <tr>
+                        <th colspan="3">
+                            <label for="myfile">头像:</label>
+                        </th>
+                        <th colspan="9">
+                            <img src="/media/avatar/w.jpg" width="75" height="75" alt="用户名图标">
+                            <input type="file" id="myfile" name="avatar" style="display: none">
+                        </th>
+                    </tr>
+                    <tr><th colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th colspan="9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th></tr>
+                    <tr><th>&nbsp;</th></tr>
+                </table>
+            </form>
+            <table>
+                <tr>
+                    <th colspan="4">
+                        <input type="button" value="提  交" class="label1" onclick="judge()">
+                    </th>
+                    <th colspan="4">
+                        <input type="reset" value="重  置" class="label2">
+                    </th>
+                    <th colspan="4">
+                        <form action="/login/" method="get" id="w1" novalidate></form>
+                        <input type="submit" value="重  新  登  录" class="label2" form="w1">
+                    </th>
+                </tr>
+            </table>
+        </div>
+	</body>
+</html>

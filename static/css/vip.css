@@ -1,0 +1,118 @@
+table {
+    border: 2q solid;
+}
+
+span {
+    color: red;
+}
+
+img {
+    transition: opacity 2s;
+}
+
+img:hover {
+    opacity: 0;
+}
+
+h1 {
+	font-family: "楷体";
+	font-size: 18px;
+	margin-left: 30px;
+	background-color: white;
+}
+
+h2 {
+	font-family: "微软雅黑";
+	font-size: 28px;
+	background-color: red;
+	color: white;
+	text-align: center;
+}
+
+.label1 {
+	font-family: "仿宋";
+	font-size: 18px;
+	background-color: white;
+	color: red;
+	width: 370px;
+	height: 33px;
+}
+
+.label2 {
+	font-family: "微软雅黑";
+	font-size: 18px;
+	background-color: orange;
+	color: white;
+	width: 180px;
+}
+
+.label3 {
+	font-family: "微软雅黑";
+	font-size: 18px;
+	margin-left: 10px;
+	background-color: darkgray;
+	width: 180px;
+}
+
+.div1 {
+    width: 1300px;
+    height: 250px;
+    position: relative;
+    left: 118px;
+    top: 15px;
+    display: inline-block;
+}
+
+.div2 {
+    width: 1316px;
+    height: 442px;
+    position: relative;
+    left: 110px;
+    top: 15px;
+    display: inline-block;
+}
+
+.div3 {
+    width: 370px;
+    height: 318px;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    display: inline-block;
+}
+
+.div4 {
+    width: 910px;
+    height: 30px;
+    position: absolute;
+    left: 408px;
+    top: 10px;
+    display: inline-block;
+}
+
+.div5 {
+    width: 910px;
+    height: 172px;
+    position: absolute;
+    left: 408px;
+    top: 47px;
+    display: inline-block;
+}
+
+.div6 {
+    width: 910px;
+    height: 30px;
+    position: absolute;
+    left: 408px;
+    top: 233px;
+    display: inline-block;
+}
+
+.div7 {
+    width: 910px;
+    height: 172px;
+    position: absolute;
+    left: 408px;
+    top: 270px;
+    display: inline-block;
+}
