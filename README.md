@@ -1,2 +1,2 @@
 # ShoppingMall
-基于Python的购物商城
+基于Django的购物商城1.0
